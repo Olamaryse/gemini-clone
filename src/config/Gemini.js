@@ -1,8 +1,8 @@
-const {
+import {
   GoogleGenerativeAI,
   HarmCategory,
   HarmBlockThreshold,
-} = require("@google/generative-ai");
+} from "@google/generative-ai";
 
 const apiKey = "AIzaSyA21Ooi_LtBj_t6utMqXwmkw8VzwiI7l00";
 const genAI = new GoogleGenerativeAI(apiKey);
@@ -19,14 +19,15 @@ const generationConfig = {
   responseMimeType: "text/plain",
 };
 
-async function run() {
+async function runChat(prompt) {
   const chatSession = model.startChat({
     generationConfig,
     history: [],
   });
 
-  const result = await chatSession.sendMessage("INSERT_INPUT_HERE");
+  const result = await chatSession.sendMessage(prompt);
   console.log(result.response.text());
+  return result.response.text();
 }
 
-run();
+export default runChat;
